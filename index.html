@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Living Through 1776 — How Old Were You?</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --parchment: #f5f0e8;
+    --parchment-dark: #ede5d0;
+    --ink: #1c1810;
+    --ink-muted: #4a4435;
+    --ink-faint: #8a7d65;
+    --teal: #1a6b5a;
+    --teal-light: #d4ede7;
+    --teal-mid: #2d9479;
+    --blue: #1a3f6b;
+    --blue-light: #d4e3f0;
+    --purple: #3d2870;
+    --purple-light: #e4dcf5;
+    --rule: #c8b99a;
+    --serif: 'EB Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: var(--serif);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+  .page { max-width: 800px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1.5px solid var(--rule);
+    margin-bottom: 2rem;
+  }
+  .kicker {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.25rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  h1 em { font-style: italic; color: var(--teal); }
+  .subhead {
+    font-size: 1.1rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+  .input-section {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .input-section label {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink-muted);
+  }
+  .input-section input[type=number] {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    width: 90px;
+    padding: 6px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    background: var(--parchment);
+    color: var(--ink);
+    text-align: center;
+    outline: none;
+  }
+  .input-section input[type=number]:focus { border-color: var(--teal-mid); }
+  .go-btn {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 22px;
+    background: var(--teal);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .go-btn:hover { background: var(--teal-mid); }
+  .anchor-note {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-muted);
+    background: var(--teal-light);
+    border-left: 3px solid var(--teal);
+    padding: 10px 14px;
+    border-radius: 0 3px 3px 0;
+    margin-bottom: 1.25rem;
+    display: none;
+    line-height: 1.6;
+  }
+  .anchor-note strong { color: var(--teal); }
+  .legend {
+    display: none;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-muted);
+    align-items: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 12px; height: 12px; border-radius: 2px; display: inline-block; }
+  .sw-1776 { background: var(--teal); }
+  .sw-1788 { background: var(--blue); }
+  .sw-1789 { background: var(--purple); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 0.93rem;
+  }
+  thead th {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+    background: var(--parchment-dark);
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 0.5px solid var(--parchment-dark);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tr:last-child td { border-bottom: none; }
+  .col-year {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    width: 48px;
+  }
+  .col-age {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    width: 60px;
+    color: var(--ink-muted);
+  }
+  .col-event { color: var(--ink); }
+  .col-context { font-size: 0.85rem; color: var(--ink-faint); }
+
+  .row-anchor td { background: var(--teal-light); }
+  .row-anchor .col-age { color: var(--teal); }
+  .row-anchor .col-year { color: var(--teal); }
+
+  .row-1788 td { background: var(--blue-light); }
+  .row-1788 .col-age { color: var(--blue); }
+  .row-1788 .col-year { color: var(--blue); }
+
+  .row-1789 td { background: var(--purple-light); }
+  .row-1789 .col-age { color: var(--purple); }
+  .row-1789 .col-year { color: var(--purple); }
+
+  footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+  }
+  footer a { color: var(--teal); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .col-context { display: none; }
+    table { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="kicker">250th Anniversary of Independence · 2026</div>
+    <h1>Living Through <em>1776</em></h1>
+    <p class="subhead">Enter your current age to see how old you would have been at every turning point of the American founding — from 1750 to 1800.</p>
+  </header>
+
+  <div class="input-section">
+    <label for="currentAge">Your current age</label>
+    <input type="number" id="currentAge" min="1" max="110" placeholder="e.g. 54" />
+    <button class="go-btn" onclick="render()">Show my timeline</button>
+  </div>
+
+  <div id="anchor-note" class="anchor-note"></div>
+
+  <div id="legend" class="legend">
+    <div class="legend-item"><span class="swatch sw-1776"></span>1776 — Declaration of Independence</div>
+    <div class="legend-item"><span class="swatch sw-1788"></span>1788 — Constitution ratified</div>
+    <div class="legend-item"><span class="swatch sw-1789"></span>1789 — Republic begins</div>
+  </div>
+
+  <div id="table-wrap"></div>
+
+  <footer>
+    Created for <a href="https://dearcrones.substack.com" target="_blank">The Crones' Nest</a> · A civic education tool for the 250th anniversary of American independence.
+  </footer>
+
+</div>
+
+<script>
+const EVENTS = [
+  { year: 1750, name: "Colonial America on the eve of conflict", context: "Britain and France are heading toward war in North America. Colonial unity is a distant dream." },
+  { year: 1751, name: "Benjamin Franklin publishes on population growth", context: "Franklin's economic thinking begins shaping colonial identity distinct from Britain." },
+  { year: 1752, name: "Franklin's kite experiment", context: "Lightning is electricity — a sensation across the Atlantic world." },
+  { year: 1753, name: "Washington's first mission to the Ohio Valley", context: "A 21-year-old Virginia militia officer delivers a British ultimatum to French forces." },
+  { year: 1754, name: "French and Indian War begins; Albany Plan of Union", context: "Seven Years' War ignites in North America. Franklin proposes colonial unity — colonies reject it." },
+  { year: 1755, name: "Braddock's defeat at Fort Duquesne", context: "British general routed; Washington survives. Colonial confidence in British military grows shaky." },
+  { year: 1756, name: "Seven Years' War declared officially", context: "A global conflict — Europe, India, North America, the Caribbean all drawn in." },
+  { year: 1757, name: "William Pitt takes over British war strategy", context: "New energy and funding poured into the North American campaign." },
+  { year: 1758, name: "British take Fort Duquesne (renamed Fort Pitt)", context: "The tide turns. Britain begins winning in North America." },
+  { year: 1759, name: "Battle of Quebec; Wolfe and Montcalm both die", context: "France loses Canada. The colonial map shifts dramatically." },
+  { year: 1760, name: "George III ascends to the British throne", context: "A new king — young, determined, and less sympathetic to colonial autonomy." },
+  { year: 1761, name: "Writs of Assistance — James Otis argues against general warrants", context: "John Adams later calls this 'the child independence was born' in that courtroom." },
+  { year: 1762, name: "Spain enters the war on France's side", context: "Britain expands the conflict; more territory changes hands." },
+  { year: 1763, name: "Treaty of Paris ends Seven Years' War; Proclamation of 1763", context: "Britain wins big — and immediately restricts colonial westward expansion. Colonists are furious." },
+  { year: 1764, name: "Sugar Act — first direct revenue tax on colonies", context: "Britain needs revenue from the colonies to pay war debts. Colonists begin to organize." },
+  { year: 1765, name: "Stamp Act; Sons of Liberty form", context: "'No taxation without representation.' The first widespread, coordinated colonial protest." },
+  { year: 1766, name: "Stamp Act repealed; Declaratory Act passed", context: "Britain backs down but insists it has the right to tax colonies 'in all cases whatsoever.'" },
+  { year: 1767, name: "Townshend Acts — new taxes on imports", context: "Britain tries again. Colonial resistance deepens. Boycotts spread." },
+  { year: 1768, name: "British troops sent to Boston", context: "Soldiers quartered among civilians. Resentment festers." },
+  { year: 1769, name: "Virginia Resolves; colonial assemblies push back", context: "Legislatures assert their exclusive right to tax their own citizens." },
+  { year: 1770, name: "Boston Massacre; most Townshend duties repealed", context: "Five colonists killed. Crispus Attucks among them. Paul Revere's engraving inflames public opinion." },
+  { year: 1771, name: "Battle of Alamance — Regulator movement crushed in NC", context: "Backcountry farmers revolt against colonial elites — a different kind of resistance." },
+  { year: 1772, name: "Committees of Correspondence established", context: "Colonies begin building communication networks — the infrastructure of revolution." },
+  { year: 1773, name: "Boston Tea Party", context: "342 chests of tea dumped in Boston Harbor. The point of no return is approaching." },
+  { year: 1774, name: "Intolerable Acts; First Continental Congress", context: "Britain punishes Massachusetts. Colonies convene together for the first time in unified resistance." },
+  { year: 1775, name: "Battles of Lexington and Concord; Second Continental Congress", context: "The war begins. Minutemen fire on British regulars. 'The shot heard round the world.'" },
+  { year: 1776, name: "Declaration of Independence", context: "July 4: The Continental Congress adopts Jefferson's declaration. A nation is born on paper — the work of becoming it takes much longer." },
+  { year: 1777, name: "Battle of Saratoga; Articles of Confederation drafted", context: "A turning-point American victory convinces France to enter as an ally. The first constitution is drafted." },
+  { year: 1778, name: "France formally enters the war; Valley Forge winter ends", context: "Washington's army survives its worst winter. French alliance changes the war's trajectory." },
+  { year: 1779, name: "Spain enters the war; Sullivan-Clinton Campaign against Haudenosaunee", context: "The Revolution's brutal other face: Washington orders destruction of Iroquois nations allied with Britain." },
+  { year: 1780, name: "Benedict Arnold's treason; British take Charleston", context: "The war's darkest year in the south. Arnold defects to the British." },
+  { year: 1781, name: "Battle of Yorktown; Articles of Confederation ratified", context: "Cornwallis surrenders. The war is effectively over. The new nation has its first governing document." },
+  { year: 1782, name: "Preliminary peace treaty signed", context: "Negotiations in Paris. Britain agrees to recognize American independence." },
+  { year: 1783, name: "Treaty of Paris; Washington disbands the army", context: "Official end of the Revolution. Washington's refusal of a crown stuns the world." },
+  { year: 1784, name: "Land Ordinance debates begin; Treaty of Paris ratified", context: "How will the new nation govern its western territories? A defining question." },
+  { year: 1785, name: "Land Ordinance of 1785", context: "A grid system for surveying western lands — still visible in Midwestern roads and fields today." },
+  { year: 1786, name: "Shays' Rebellion; Annapolis Convention", context: "Debt-ridden farmers revolt. The Articles of Confederation are visibly failing. A new convention is called." },
+  { year: 1787, name: "Constitutional Convention; Northwest Ordinance", context: "55 delegates spend a hot summer in Philadelphia designing a new government. The Northwest Ordinance bans slavery in new territories — but protects it elsewhere." },
+  { year: 1788, name: "Constitution ratified (9th state: New Hampshire)", context: "The new framework of government takes effect. Fierce debate — Federalists vs. Anti-Federalists." },
+  { year: 1789, name: "Washington inaugurated; Congress meets; Bill of Rights proposed", context: "The machinery of the new republic starts. Madison proposes 12 amendments; 10 will be ratified." },
+  { year: 1790, name: "First census; Hamilton's financial plan", context: "A nation taking stock of itself. Hamilton's vision of a commercial republic begins taking shape." },
+  { year: 1791, name: "Bill of Rights ratified; Bank of the United States chartered", context: "The first ten amendments secure individual rights — for some. The bank battle opens a rift between Hamilton and Jefferson." },
+  { year: 1792, name: "Washington reelected; political parties begin forming", context: "Federalists and Democratic-Republicans emerge. The two-party dynamic is already here." },
+  { year: 1793, name: "Fugitive Slave Act; Neutrality Proclamation", context: "The Constitution's compromise on slavery is codified into law. Europe's revolution forces American foreign policy choices." },
+  { year: 1794, name: "Whiskey Rebellion; Jay's Treaty", context: "Frontier farmers revolt against a federal tax on whiskey. Washington calls out the militia — federal authority holds." },
+  { year: 1795, name: "Pinckney's Treaty with Spain; Jay's Treaty ratified", context: "Navigation rights on the Mississippi secured. But Jay's Treaty with Britain outrages the public." },
+  { year: 1796, name: "Washington's Farewell Address; Adams elected", context: "Washington warns against 'entangling alliances' and partisan factionalism. He is ignored almost immediately." },
+  { year: 1797, name: "XYZ Affair begins", context: "French agents demand bribes from American diplomats. 'Millions for defense, but not one cent for tribute.'" },
+  { year: 1798, name: "Alien and Sedition Acts; Virginia and Kentucky Resolutions", context: "Adams's administration criminalizes criticism of the government. Jefferson and Madison push back with states' rights arguments." },
+  { year: 1799, name: "Washington dies; Fries's Rebellion", context: "The indispensable man is gone. Pennsylvania Germans revolt against a new federal property tax." },
+  { year: 1800, name: "Jefferson elected; capital moves to Washington, D.C.", context: "The 'Revolution of 1800' — a peaceful transfer of power between parties. The new capital is a swamp." },
+];
+
+function render() {
+  const age = parseInt(document.getElementById('currentAge').value);
+  if (!age || age < 1 || age > 110) {
+    document.getElementById('table-wrap').innerHTML = '<p style="font-family:var(--sans);font-size:13px;color:var(--ink-faint);padding:1rem 0;">Please enter a valid age between 1 and 110.</p>';
+    return;
+  }
+
+  const birthYear = 1776 - age;
+
+  const noteEl = document.getElementById('anchor-note');
+  noteEl.style.display = 'block';
+  noteEl.innerHTML = `Born in <strong>${birthYear}</strong>, you would have been <strong>${age}</strong> when the Declaration was signed — <strong>${1788 - birthYear}</strong> when the Constitution was ratified, and <strong>${1789 - birthYear}</strong> when Washington took office.`;
+
+  document.getElementById('legend').style.display = 'flex';
+
+  let html = `<table>
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Your age</th>
+        <th>Event</th>
+        <th>Context</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  EVENTS.forEach(e => {
+    const ageAtEvent = e.year - birthYear;
+    let rowClass = '';
+    if (e.year === 1776) rowClass = 'row-anchor';
+    else if (e.year === 1788) rowClass = 'row-1788';
+    else if (e.year === 1789) rowClass = 'row-1789';
+
+    html += `<tr class="${rowClass}">
+      <td class="col-year">${e.year}</td>
+      <td class="col-age">${ageAtEvent}</td>
+      <td class="col-event">${e.name}</td>
+      <td class="col-context">${e.context}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  document.getElementById('table-wrap').innerHTML = html;
+}
+
+document.getElementById('currentAge').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') render();
+});
+</script>
+</body>
+</html>
